@@ -8,7 +8,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTableData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/thems");
+        const response = await axios.get("https://be-citizen.vercel.app/thems");
         if (response.status === 200) {
           setTableData(response.data);
         }
