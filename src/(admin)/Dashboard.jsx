@@ -1,24 +1,26 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
-import Table from '../components/admin/Table';    
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Table from "../components/admin/Table";
 
 const Dashboard = () => {
-  const tableData = [
-    {
-      name: 'Apple MacBook Pro 17"',
-      color: 'Silver',
-      category: 'Laptop',
-      accessories: 'Yes',
-      available: 'Yes',
-      price: '$2999',
-      weight: '3.0 lb.'
-    },
-    // Add more data objects as needed
-  ];
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    const fetchTableData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/thems");
+        if (response.status === 200) {
+          setTableData(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching table data:", error);
+      }
+    };
+    fetchTableData();
+  }, []);
 
   return (
     <div>
-      <h1>Dashboard</h1>
       <Table data={tableData} />
     </div>
   );
